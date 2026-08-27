@@ -1,12 +1,15 @@
 """
-finding_agent.py -- Phase A step 3. Produces structured findings {term: prob}
-over the 28-term vocabulary. This is where YOUR imbalance contribution lives.
+finding_agent.py -- produces structured findings {term: score} over the 28-term
+vocabulary.
 
-Two modes (config.USE_CLASSIFIER):
-  True  -> load your LDAM-DRW + curriculum-margin multi-label classifier (CLF_CKPT).
-  False -> fallback: parse the retrieved exemplar reports for vocabulary terms,
-           weighting each hit by the neighbour's similarity. Lets the whole graph
-           run before the classifier is trained; swap to True when ready.
+Primary mode is GROUNDED RETRIEVAL: a term's score is the similarity-weighted
+fraction of the top-k nearest neighbours whose report mentions it. An ablation
+showed this doubles the trained LDAM-DRW classifier's macro-F1 (0.197 vs 0.093)
+and is the only method to score above zero on rare (medium/tail) terms, because it
+recalls a similar past case rather than trying to learn an unlearnable class from
+one or two examples. It also needs no training and is interpretable.
+
+Set config.USE_CLASSIFIER = True only to fall back to the (weaker) LDAM classifier.
 """
 import re
 import torch
@@ -37,21 +40,21 @@ class FindingAgent:
         probs = self.clf.predict_proba(image_path)
         return {t: float(probs.get(t, 0.0)) for t in TERMS}
 
-    def _from_exemplars(self, exemplars):
-        """Similarity-weighted vote: a term's score is the max similarity among
-        neighbours whose report mentions it, giving a pseudo-probability in [0,1]."""
+    def _from_exemplars(self, exemplars, k=5):
+        """Grounded retrieval vote: a term's score is the similarity-weighted
+        fraction of the top-k neighbours whose report mentions it (in [0,1]).
+        k=5 with a low assertion threshold was best in the ablation, because it
+        lets a single close neighbour surface a rare finding."""
+        ex = sorted((e for e in exemplars if e.get("report_text")),
+                    key=lambda e: -e.get("sim", 0.0))[:k]
+        wsum = sum(e.get("sim", 0.0) for e in ex) or 1.0
         scores = {t: 0.0 for t in TERMS}
-        wsum = sum(e["sim"] for e in exemplars if e.get("report_text")) or 1.0
-        for e in exemplars:
-            rep = e.get("report_text", "")
-            if not rep:
-                continue
+        for e in ex:
+            rep = e["report_text"]
             for t in TERMS:
                 if _match(t, rep):
-                    scores[t] = max(scores[t], e["sim"])
-        # normalise so the strongest neighbour maps toward 1.0
-        top = max(scores.values()) or 1.0
-        return {t: min(1.0, v / top) for t, v in scores.items()}
+                    scores[t] += e.get("sim", 0.0)
+        return {t: v / wsum for t, v in scores.items()}
 
     def predict(self, image_path, exemplars):
         if self.clf is not None:

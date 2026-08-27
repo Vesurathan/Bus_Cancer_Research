@@ -1,0 +1,3181 @@
+{
+  "meta": {
+    "dataset": "BrEaST-Lesions-USG",
+    "config": "full agent (retrieve + find + draft + verify + LLM refine)",
+    "model": "llama3.1:8b",
+    "nTerms": 28
+  },
+  "tiers": {
+    "head": [
+      "suspicion of malignancy",
+      "fibroadenoma",
+      "intraductal papilloma",
+      "dysplasia",
+      "cyst filled with thick fluid",
+      "complex cyst non simple cyst",
+      "mammary duct ectasia",
+      "duct filled with thick fluid",
+      "hamartoma",
+      "breast scar surgery",
+      "mastitis"
+    ],
+    "medium": [
+      "silicone implant",
+      "not applicable",
+      "simple cyst",
+      "intramammary lymph node",
+      "hematoma",
+      "lipoma"
+    ],
+    "tail": [
+      "adenosis",
+      "phyllodes tumor",
+      "implant rupture",
+      "lacteal cyst",
+      "fat necrosis",
+      "breast scar radiotherapy",
+      "isolated calcifications",
+      "abscess",
+      "hemangioma",
+      "seroma",
+      "lactating adenoma"
+    ]
+  },
+  "cases": [
+    {
+      "id": "case001",
+      "image": "cases/case001.png",
+      "biRads": "2",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - indistinct. Findings: breast scar surgery, breast scar radiotherapy, bi-rads 2.",
+      "goldTerms": [
+        "breast scar surgery",
+        "breast scar radiotherapy"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case001_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, intraductal papilloma, mastitis, bi-rads 4b.",
+              "sim": 0.958
+            },
+            {
+              "image": "cases/case001_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: complex cyst non simple cyst, cyst filled with thick fluid, fibroadenoma, intraductal papilloma, bi-rads 4a.",
+              "sim": 0.957
+            },
+            {
+              "image": "cases/case001_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated&indistinct. Findings: suspicion of malignancy, bi-rads 5.",
+              "sim": 0.949
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.7371,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.2473,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0568,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0076,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0057,
+              "tier": "medium"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0056,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0044,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.004,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0035,
+              "tier": "head"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0025,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0024,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0019,
+              "tier": "medium"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0017,
+              "tier": "head"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0016,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0015,
+              "tier": "medium"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0012,
+              "tier": "medium"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0008,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0001,
+              "tier": "medium"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": true,
+          "issues": []
+        },
+        "refine": {
+          "report": "",
+          "applied": false
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: suspicion of malignancy, bi - rads 5.",
+        "attempts": 1,
+        "verified": true
+      }
+    },
+    {
+      "id": "case013",
+      "image": "cases/case013.png",
+      "biRads": "5",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated&angular&indistinct. Findings: suspicion of malignancy, bi-rads 5.",
+      "goldTerms": [
+        "suspicion of malignancy"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case013_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: dysplasia, bi-rads 3.",
+              "sim": 0.962
+            },
+            {
+              "image": "cases/case013_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular&microlobulated. Findings: suspicion of malignancy, bi-rads 5.",
+              "sim": 0.949
+            },
+            {
+              "image": "cases/case013_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - angular. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.946
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.9992,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.01,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0077,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0066,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0054,
+              "tier": "head"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0036,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0034,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0028,
+              "tier": "head"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0014,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0013,
+              "tier": "medium"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0012,
+              "tier": "medium"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.001,
+              "tier": "tail"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0009,
+              "tier": "medium"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0005,
+              "tier": "head"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0004,
+              "tier": "medium"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0004,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0003,
+              "tier": "head"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0001,
+              "tier": "head"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated. Findings: suspicion of malignancy, bi - rads 4c."
+        },
+        "verify": {
+          "verified": true,
+          "issues": []
+        },
+        "refine": {
+          "report": "",
+          "applied": false
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated. Findings: suspicion of malignancy, bi - rads 4c.",
+        "attempts": 1,
+        "verified": true
+      }
+    },
+    {
+      "id": "case014",
+      "image": "cases/case014.png",
+      "biRads": "4a",
+      "goldReport": "Tissue composition: homogeneous: fibroglandular. Shape and margin: oval, circumscribed. Findings: cyst filled with thick fluid, fibroadenoma, bi-rads 4a.",
+      "goldTerms": [
+        "fibroadenoma",
+        "cyst filled with thick fluid"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case014_ex0.png",
+              "report": "Tissue composition: homogeneous: fat. Shape and margin: oval, circumscribed. Findings: complex cyst non simple cyst, cyst filled with thick fluid, intraductal papilloma, bi-rads 4a.",
+              "sim": 0.924
+            },
+            {
+              "image": "cases/case014_ex1.png",
+              "report": "Tissue composition: homogeneous: fibroglandular. Shape and margin: oval, circumscribed. Findings: intramammary lymph node, bi-rads 2.",
+              "sim": 0.895
+            },
+            {
+              "image": "cases/case014_ex2.png",
+              "report": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.892
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "fibroadenoma",
+              "prob": 0.8161,
+              "tier": "head"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.0923,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0541,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.025,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0169,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0163,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0041,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0031,
+              "tier": "head"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0026,
+              "tier": "tail"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0025,
+              "tier": "medium"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0019,
+              "tier": "medium"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0012,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0012,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.001,
+              "tier": "medium"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0008,
+              "tier": "tail"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0005,
+              "tier": "medium"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0003,
+              "tier": "medium"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0002,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            },
+            {
+              "kind": "missing",
+              "term": "fibroadenoma"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: fibroadenoma, BI-RADS 5.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: fibroadenoma, BI-RADS 5.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case020",
+      "image": "cases/case020.png",
+      "biRads": "2",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: cyst filled with thick fluid, bi-rads 2.",
+      "goldTerms": [
+        "cyst filled with thick fluid"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case020_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: suspicion of malignancy, complex cyst non simple cyst, dysplasia, bi-rads 4b.",
+              "sim": 0.95
+            },
+            {
+              "image": "cases/case020_ex1.png",
+              "report": "Tissue composition: not available. Shape and margin: oval, circumscribed. Findings: dysplasia, lipoma, bi-rads 4a.",
+              "sim": 0.944
+            },
+            {
+              "image": "cases/case020_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: cyst filled with thick fluid, bi-rads 2.",
+              "sim": 0.944
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "simple cyst",
+              "prob": 0.853,
+              "tier": "medium"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.8206,
+              "tier": "head"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.047,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0281,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.021,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0192,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0129,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0104,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.005,
+              "tier": "medium"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0036,
+              "tier": "medium"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0034,
+              "tier": "head"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0015,
+              "tier": "medium"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0011,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0007,
+              "tier": "head"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, bi - rads 4c."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            },
+            {
+              "kind": "missing",
+              "term": "dysplasia"
+            },
+            {
+              "kind": "missing",
+              "term": "simple cyst"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - indistinct. Findings: simple cyst, dysplasia, BI-RADS 4c.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - indistinct. Findings: simple cyst, dysplasia, BI-RADS 4c.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case025",
+      "image": "cases/case025.png",
+      "biRads": "4a",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: fibroadenoma, bi-rads 4a.",
+      "goldTerms": [
+        "fibroadenoma"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case025_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: dysplasia, mammary duct ectasia, bi-rads 3.",
+              "sim": 0.977
+            },
+            {
+              "image": "cases/case025_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: lipoma, bi-rads 2.",
+              "sim": 0.971
+            },
+            {
+              "image": "cases/case025_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: not applicable, not applicable. Findings: not applicable, bi-rads 1.",
+              "sim": 0.969
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "dysplasia",
+              "prob": 0.5435,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.2579,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0781,
+              "tier": "medium"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.0244,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0174,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.014,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0085,
+              "tier": "medium"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0082,
+              "tier": "head"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0041,
+              "tier": "medium"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0017,
+              "tier": "medium"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0013,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0013,
+              "tier": "head"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0013,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.001,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0005,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: BI-RADS 5.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular indistinct. Findings: BI-RADS 5.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case026",
+      "image": "cases/case026.png",
+      "biRads": "4c",
+      "goldReport": "Tissue composition: homogeneous: fibroglandular. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+      "goldTerms": [
+        "suspicion of malignancy"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case026_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: fibroadenoma, bi-rads 3.",
+              "sim": 0.914
+            },
+            {
+              "image": "cases/case026_ex1.png",
+              "report": "Tissue composition: homogeneous: fibroglandular. Shape and margin: oval, circumscribed. Findings: fibroadenoma, bi-rads 4a.",
+              "sim": 0.911
+            },
+            {
+              "image": "cases/case026_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: duct filled with thick fluid, intraductal papilloma, bi-rads 4a.",
+              "sim": 0.91
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "fibroadenoma",
+              "prob": 0.9773,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.6052,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0449,
+              "tier": "medium"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.039,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0346,
+              "tier": "head"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.0186,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0076,
+              "tier": "head"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0041,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0037,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0035,
+              "tier": "head"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0024,
+              "tier": "medium"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0021,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0018,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0015,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.001,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0009,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0009,
+              "tier": "medium"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0009,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0008,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0006,
+              "tier": "medium"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0005,
+              "tier": "medium"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            },
+            {
+              "kind": "missing",
+              "term": "fibroadenoma"
+            },
+            {
+              "kind": "missing",
+              "term": "cyst filled with thick fluid"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: BI-RADS 5; fibroadenoma; cyst filled with thick fluid.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: BI-RADS 5; fibroadenoma; cyst filled with thick fluid.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case027",
+      "image": "cases/case027.png",
+      "biRads": "5",
+      "goldReport": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - angular&indistinct. Findings: suspicion of malignancy, fibroadenoma, intraductal papilloma, bi-rads 5.",
+      "goldTerms": [
+        "suspicion of malignancy",
+        "fibroadenoma",
+        "intraductal papilloma"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case027_ex0.png",
+              "report": "Tissue composition: homogeneous: fat. Shape and margin: irregular, not circumscribed - angular&indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.971
+            },
+            {
+              "image": "cases/case027_ex1.png",
+              "report": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - spiculated&indistinct. Findings: suspicion of malignancy, fibroadenoma, bi-rads 4c.",
+              "sim": 0.968
+            },
+            {
+              "image": "cases/case027_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated&microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 5.",
+              "sim": 0.968
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 1.0,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.953,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.215,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0123,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0104,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0028,
+              "tier": "medium"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0025,
+              "tier": "tail"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0024,
+              "tier": "medium"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0022,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0022,
+              "tier": "medium"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.002,
+              "tier": "head"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0017,
+              "tier": "medium"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.001,
+              "tier": "medium"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.001,
+              "tier": "tail"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0004,
+              "tier": "head"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0001,
+              "tier": "medium"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "missing",
+              "term": "fibroadenoma"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, fibroadenoma, BI-RADS 5.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, fibroadenoma, BI-RADS 5.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case028",
+      "image": "cases/case028.png",
+      "biRads": "3",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: complex cyst non simple cyst, cyst filled with thick fluid, bi-rads 3.",
+      "goldTerms": [
+        "cyst filled with thick fluid",
+        "complex cyst non simple cyst",
+        "simple cyst"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case028_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.976
+            },
+            {
+              "image": "cases/case028_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated&microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.97
+            },
+            {
+              "image": "cases/case028_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - microlobulated. Findings: suspicion of malignancy, intraductal papilloma, bi-rads 4b.",
+              "sim": 0.968
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.9972,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.2347,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.2204,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0068,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0047,
+              "tier": "medium"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0036,
+              "tier": "head"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0021,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0018,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0017,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0016,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0014,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0009,
+              "tier": "medium"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0009,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0008,
+              "tier": "medium"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0006,
+              "tier": "medium"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0004,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": true,
+          "issues": []
+        },
+        "refine": {
+          "report": "",
+          "applied": false
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b.",
+        "attempts": 1,
+        "verified": true
+      }
+    },
+    {
+      "id": "case030",
+      "image": "cases/case030.png",
+      "biRads": "3",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: complex cyst non simple cyst, bi-rads 3.",
+      "goldTerms": [
+        "complex cyst non simple cyst",
+        "simple cyst"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case030_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: cyst filled with thick fluid, bi-rads 2.",
+              "sim": 0.956
+            },
+            {
+              "image": "cases/case030_ex1.png",
+              "report": "Tissue composition: homogeneous: fibroglandular. Shape and margin: oval, circumscribed. Findings: complex cyst non simple cyst, bi-rads 2.",
+              "sim": 0.945
+            },
+            {
+              "image": "cases/case030_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: complex cyst non simple cyst, fibroadenoma, bi-rads 3.",
+              "sim": 0.941
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "simple cyst",
+              "prob": 0.8999,
+              "tier": "medium"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.6804,
+              "tier": "head"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.6147,
+              "tier": "head"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.4107,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.2161,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.2105,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0451,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0442,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0189,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0078,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0064,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0038,
+              "tier": "tail"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0037,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.003,
+              "tier": "head"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0027,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0025,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.002,
+              "tier": "medium"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0019,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0017,
+              "tier": "medium"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0015,
+              "tier": "medium"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0006,
+              "tier": "medium"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "missing",
+              "term": "complex cyst non simple cyst"
+            },
+            {
+              "kind": "missing",
+              "term": "simple cyst"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, complex cyst non simple cyst, simple cyst, BI-RADS 4b.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, complex cyst non simple cyst, simple cyst, BI-RADS 4b.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case035",
+      "image": "cases/case035.png",
+      "biRads": "5",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated&angular. Findings: suspicion of malignancy, bi-rads 5.",
+      "goldTerms": [
+        "suspicion of malignancy"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case035_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, not circumscribed - indistinct. Findings: suspicion of malignancy, fibroadenoma, intraductal papilloma, bi-rads 4b.",
+              "sim": 0.961
+            },
+            {
+              "image": "cases/case035_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - microlobulated&indistinct. Findings: suspicion of malignancy, mastitis, bi-rads 4c.",
+              "sim": 0.943
+            },
+            {
+              "image": "cases/case035_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - angular&microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 5.",
+              "sim": 0.941
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.9988,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0285,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0066,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0038,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0033,
+              "tier": "head"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0024,
+              "tier": "medium"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0022,
+              "tier": "medium"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0016,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0016,
+              "tier": "tail"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0015,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0011,
+              "tier": "medium"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0004,
+              "tier": "medium"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0003,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": true,
+          "issues": []
+        },
+        "refine": {
+          "report": "",
+          "applied": false
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b.",
+        "attempts": 1,
+        "verified": true
+      }
+    },
+    {
+      "id": "case038",
+      "image": "cases/case038.png",
+      "biRads": "3",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: oval, circumscribed. Findings: cyst filled with thick fluid, fibroadenoma, silicone implant, bi-rads 3.",
+      "goldTerms": [
+        "fibroadenoma",
+        "cyst filled with thick fluid",
+        "silicone implant"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case038_ex0.png",
+              "report": "Tissue composition: homogeneous: fibroglandular. Shape and margin: oval, circumscribed. Findings: fibroadenoma, hamartoma, bi-rads 4a.",
+              "sim": 0.9
+            },
+            {
+              "image": "cases/case038_ex1.png",
+              "report": "Tissue composition: homogeneous: fibroglandular. Shape and margin: oval, circumscribed. Findings: fibroadenoma, bi-rads 2.",
+              "sim": 0.898
+            },
+            {
+              "image": "cases/case038_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, mastitis, bi-rads 4b.",
+              "sim": 0.887
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "fibroadenoma",
+              "prob": 0.3799,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.1121,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0999,
+              "tier": "head"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0687,
+              "tier": "tail"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.0403,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0328,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0165,
+              "tier": "medium"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0157,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0138,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0137,
+              "tier": "head"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0121,
+              "tier": "tail"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0108,
+              "tier": "head"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0095,
+              "tier": "head"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0053,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0051,
+              "tier": "tail"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.004,
+              "tier": "head"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0029,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0026,
+              "tier": "medium"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0025,
+              "tier": "medium"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0024,
+              "tier": "medium"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0013,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.001,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0004,
+              "tier": "medium"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: BI-RADS 5.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: BI-RADS 5.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case045",
+      "image": "cases/case045.png",
+      "biRads": "1",
+      "goldReport": "Tissue composition: lactating&homogeneous: fibroglandular. Shape and margin: not applicable, not applicable. Findings: not applicable, bi-rads 1.",
+      "goldTerms": [
+        "not applicable"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case045_ex0.png",
+              "report": "Tissue composition: lactating&homogeneous: fibroglandular. Shape and margin: not applicable, not applicable. Findings: not applicable, bi-rads 1.",
+              "sim": 0.87
+            },
+            {
+              "image": "cases/case045_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: mammary duct ectasia, bi-rads 2.",
+              "sim": 0.865
+            },
+            {
+              "image": "cases/case045_ex2.png",
+              "report": "Tissue composition: homogeneous: fat. Shape and margin: oval, circumscribed. Findings: suspicion of malignancy, complex cyst non simple cyst, dysplasia, fibroadenoma, mammary duct ectasia, intraductal papilloma, bi-rads 4b.",
+              "sim": 0.86
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.8042,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.4595,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.3403,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.2502,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.2147,
+              "tier": "head"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.0506,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0489,
+              "tier": "tail"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0459,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0237,
+              "tier": "head"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0189,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0126,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0109,
+              "tier": "tail"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0103,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0102,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0098,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0075,
+              "tier": "medium"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0064,
+              "tier": "medium"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0064,
+              "tier": "tail"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0062,
+              "tier": "medium"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0057,
+              "tier": "tail"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0048,
+              "tier": "medium"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0047,
+              "tier": "tail"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0042,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0037,
+              "tier": "head"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.003,
+              "tier": "medium"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0019,
+              "tier": "tail"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0006,
+              "tier": "medium"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0006,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            },
+            {
+              "kind": "missing",
+              "term": "mammary duct ectasia"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: mammary duct ectasia; BI-RADS 4b.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: mammary duct ectasia; BI-RADS 4b.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case048",
+      "image": "cases/case048.png",
+      "biRads": "2",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: round, circumscribed. Findings: simple cyst, bi-rads 2.",
+      "goldTerms": [
+        "simple cyst"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case048_ex0.png",
+              "report": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, fibroadenoma, intraductal papilloma, bi-rads 4b.",
+              "sim": 0.952
+            },
+            {
+              "image": "cases/case048_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - microlobulated. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.95
+            },
+            {
+              "image": "cases/case048_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 5.",
+              "sim": 0.942
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.3913,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.1571,
+              "tier": "medium"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.1424,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.1267,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.1092,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0423,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0159,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0126,
+              "tier": "head"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0066,
+              "tier": "head"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0042,
+              "tier": "tail"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0027,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0021,
+              "tier": "medium"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0018,
+              "tier": "medium"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0013,
+              "tier": "head"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0012,
+              "tier": "tail"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0011,
+              "tier": "head"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.001,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0009,
+              "tier": "medium"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0008,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0007,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0005,
+              "tier": "medium"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": true,
+          "issues": []
+        },
+        "refine": {
+          "report": "",
+          "applied": false
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b.",
+        "attempts": 1,
+        "verified": true
+      }
+    },
+    {
+      "id": "case050",
+      "image": "cases/case050.png",
+      "biRads": "5",
+      "goldReport": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, dysplasia, fibroadenoma, intraductal papilloma, bi-rads 5.",
+      "goldTerms": [
+        "suspicion of malignancy",
+        "fibroadenoma",
+        "intraductal papilloma",
+        "dysplasia"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case050_ex0.png",
+              "report": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - spiculated&indistinct. Findings: suspicion of malignancy, fibroadenoma, bi-rads 4c.",
+              "sim": 0.976
+            },
+            {
+              "image": "cases/case050_ex1.png",
+              "report": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - angular&indistinct. Findings: suspicion of malignancy, fibroadenoma, intraductal papilloma, bi-rads 5.",
+              "sim": 0.966
+            },
+            {
+              "image": "cases/case050_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - microlobulated&indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.965
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.9997,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.9817,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.9525,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.072,
+              "tier": "head"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0064,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0042,
+              "tier": "head"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0031,
+              "tier": "tail"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0024,
+              "tier": "head"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0022,
+              "tier": "medium"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0014,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0013,
+              "tier": "medium"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0012,
+              "tier": "tail"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0011,
+              "tier": "medium"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.001,
+              "tier": "tail"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0009,
+              "tier": "medium"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0009,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0006,
+              "tier": "tail"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0004,
+              "tier": "head"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0002,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, bi - rads 5."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "missing",
+              "term": "fibroadenoma"
+            },
+            {
+              "kind": "missing",
+              "term": "intraductal papilloma"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, fibroadenoma, intraductal papilloma, bi-rads 5.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated indistinct. Findings: suspicion of malignancy, fibroadenoma, intraductal papilloma, bi-rads 5.",
+        "attempts": 2,
+        "verified": true
+      }
+    },
+    {
+      "id": "case053",
+      "image": "cases/case053.png",
+      "biRads": "4b",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated&indistinct. Findings: suspicion of malignancy, dysplasia, bi-rads 4b.",
+      "goldTerms": [
+        "suspicion of malignancy",
+        "dysplasia"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case053_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - microlobulated. Findings: suspicion of malignancy, intraductal papilloma, bi-rads 4b.",
+              "sim": 0.98
+            },
+            {
+              "image": "cases/case053_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - spiculated. Findings: suspicion of malignancy, bi-rads 5.",
+              "sim": 0.975
+            },
+            {
+              "image": "cases/case053_ex2.png",
+              "report": "Tissue composition: heterogeneous: predominantly fibroglandular. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, bi-rads 4c.",
+              "sim": 0.975
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.9996,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0432,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0409,
+              "tier": "head"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0028,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0017,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0016,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0014,
+              "tier": "medium"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0012,
+              "tier": "medium"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0012,
+              "tier": "medium"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0011,
+              "tier": "tail"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0008,
+              "tier": "tail"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0007,
+              "tier": "medium"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0006,
+              "tier": "medium"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0004,
+              "tier": "head"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0003,
+              "tier": "head"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0003,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0003,
+              "tier": "medium"
+            },
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0002,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0002,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": true,
+          "issues": []
+        },
+        "refine": {
+          "report": "",
+          "applied": false
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b.",
+        "attempts": 1,
+        "verified": true
+      }
+    },
+    {
+      "id": "case054",
+      "image": "cases/case054.png",
+      "biRads": "3",
+      "goldReport": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, circumscribed. Findings: dysplasia, bi-rads 3.",
+      "goldTerms": [
+        "dysplasia"
+      ],
+      "steps": {
+        "retrieve": {
+          "exemplars": [
+            {
+              "image": "cases/case054_ex0.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: oval, circumscribed. Findings: lipoma, bi-rads 2.",
+              "sim": 0.977
+            },
+            {
+              "image": "cases/case054_ex1.png",
+              "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, circumscribed. Findings: dysplasia, fibroadenoma, bi-rads 3.",
+              "sim": 0.976
+            },
+            {
+              "image": "cases/case054_ex2.png",
+              "report": "Tissue composition: not available. Shape and margin: irregular, not circumscribed - indistinct. Findings: suspicion of malignancy, dysplasia, fibroadenoma, intraductal papilloma, bi-rads 4b.",
+              "sim": 0.97
+            }
+          ]
+        },
+        "find": {
+          "findings": [
+            {
+              "term": "mammary duct ectasia",
+              "prob": 0.0948,
+              "tier": "head"
+            },
+            {
+              "term": "fibroadenoma",
+              "prob": 0.0541,
+              "tier": "head"
+            },
+            {
+              "term": "suspicion of malignancy",
+              "prob": 0.0434,
+              "tier": "head"
+            },
+            {
+              "term": "dysplasia",
+              "prob": 0.0329,
+              "tier": "head"
+            },
+            {
+              "term": "intraductal papilloma",
+              "prob": 0.0201,
+              "tier": "head"
+            },
+            {
+              "term": "cyst filled with thick fluid",
+              "prob": 0.0106,
+              "tier": "head"
+            },
+            {
+              "term": "hamartoma",
+              "prob": 0.0102,
+              "tier": "head"
+            },
+            {
+              "term": "lipoma",
+              "prob": 0.0096,
+              "tier": "medium"
+            },
+            {
+              "term": "duct filled with thick fluid",
+              "prob": 0.0045,
+              "tier": "head"
+            },
+            {
+              "term": "intramammary lymph node",
+              "prob": 0.0032,
+              "tier": "medium"
+            },
+            {
+              "term": "not applicable",
+              "prob": 0.0031,
+              "tier": "medium"
+            },
+            {
+              "term": "hemangioma",
+              "prob": 0.0024,
+              "tier": "tail"
+            },
+            {
+              "term": "adenosis",
+              "prob": 0.0017,
+              "tier": "tail"
+            },
+            {
+              "term": "lacteal cyst",
+              "prob": 0.0013,
+              "tier": "tail"
+            },
+            {
+              "term": "mastitis",
+              "prob": 0.0008,
+              "tier": "head"
+            },
+            {
+              "term": "implant rupture",
+              "prob": 0.0008,
+              "tier": "tail"
+            },
+            {
+              "term": "complex cyst non simple cyst",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "breast scar surgery",
+              "prob": 0.0006,
+              "tier": "head"
+            },
+            {
+              "term": "simple cyst",
+              "prob": 0.0005,
+              "tier": "medium"
+            },
+            {
+              "term": "isolated calcifications",
+              "prob": 0.0005,
+              "tier": "tail"
+            },
+            {
+              "term": "hematoma",
+              "prob": 0.0004,
+              "tier": "medium"
+            },
+            {
+              "term": "breast scar radiotherapy",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "seroma",
+              "prob": 0.0004,
+              "tier": "tail"
+            },
+            {
+              "term": "lactating adenoma",
+              "prob": 0.0003,
+              "tier": "tail"
+            },
+            {
+              "term": "silicone implant",
+              "prob": 0.0002,
+              "tier": "medium"
+            },
+            {
+              "term": "phyllodes tumor",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "fat necrosis",
+              "prob": 0.0001,
+              "tier": "tail"
+            },
+            {
+              "term": "abscess",
+              "prob": 0.0001,
+              "tier": "tail"
+            }
+          ]
+        },
+        "draft": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: suspicion of malignancy, bi - rads 4b."
+        },
+        "verify": {
+          "verified": false,
+          "issues": [
+            {
+              "kind": "contradiction",
+              "term": "suspicion of malignancy"
+            }
+          ]
+        },
+        "refine": {
+          "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: BI-RADS 4b.",
+          "applied": true
+        }
+      },
+      "final": {
+        "report": "Tissue composition: heterogeneous: predominantly fat. Shape and margin: irregular, not circumscribed - spiculated angular microlobulated indistinct. Findings: BI-RADS 4b.",
+        "attempts": 2,
+        "verified": true
+      }
+    }
+  ]
+}

@@ -22,10 +22,12 @@ SEED       = 42
 
 # ---- agent behaviour ----------------------------------------------------- #
 TOP_K          = 5       # retrieved exemplars
-USE_CLASSIFIER = True   # True once CLF_CKPT is trained; else exemplar-parse fallback
+USE_CLASSIFIER = False  # retrieval-based findings (ablation showed the trained
+                        # LDAM classifier does not beat grounded retrieval)
 DRAFT_MODE     = "external"  # "external" (your generator) | "template" (findings->report)
-HIGH_CONF      = 0.60    # finding asserted at/above this must appear in the report
-LOW_CONF       = 0.15    # report asserting a term below this is a contradiction
+HIGH_CONF      = 0.20    # finding asserted at/above this must appear in the report
+                         # (tuned to the retrieval-vote score distribution)
+LOW_CONF       = 0.05    # report asserting a term below this is a contradiction
 MAX_ATTEMPTS   = 2       # verify->refine loop cap
 
 # ---- Phase B: refiner ---------------------------------------------------- #
