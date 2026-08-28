@@ -106,10 +106,14 @@ def run_fold(config_name, fold):
 
     build_index.main()                            # index this fold's train only
 
-    config.CLF_CKPT = f"./interp_ldam_drw_{config_name}_fold{fold}.pt"
-    train_finding_agent.train_and_eval(
-        man, CLF_EPOCHS_PER_FOLD, config.CLF_CKPT, config.DEVICE,
-        log_prefix=f"[{config_name}][fold {fold}][clf] ")
+    # Findings now come from grounded retrieval (config.USE_CLASSIFIER=False), which
+    # needs no training -- only the fold's FAISS index built above. The trained
+    # LDAM-DRW classifier is retrained only if explicitly re-enabled.
+    if config.USE_CLASSIFIER:
+        config.CLF_CKPT = f"./interp_ldam_drw_{config_name}_fold{fold}.pt"
+        train_finding_agent.train_and_eval(
+            man, CLF_EPOCHS_PER_FOLD, config.CLF_CKPT, config.DEVICE,
+            log_prefix=f"[{config_name}][fold {fold}][clf] ")
 
     # The external generator leaks across folds too if reused, so retrain it
     # on this fold's train split whenever DRAFT_MODE requires it.
@@ -146,9 +150,12 @@ def run_fold_infer(dest_row, src_row, ablation, fold):
 
     build_index.main()                            # fold train index (for retrieval)
 
-    config.CLF_CKPT = f"./interp_ldam_drw_{src_row}_fold{fold}.pt"
     config.GEN_CKPT = _gen_ckpt(src_row, fold)
-    for ck in (config.CLF_CKPT, config.GEN_CKPT):
+    reuse = [config.GEN_CKPT]
+    if config.USE_CLASSIFIER:                      # retrieval findings need no ckpt
+        config.CLF_CKPT = f"./interp_ldam_drw_{src_row}_fold{fold}.pt"
+        reuse.append(config.CLF_CKPT)
+    for ck in reuse:
         if not os.path.exists(ck):
             raise FileNotFoundError(f"missing reuse checkpoint: {ck}")
 
