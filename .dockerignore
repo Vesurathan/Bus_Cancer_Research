@@ -1,0 +1,38 @@
+# Keep the build context (and image) small. `prod/` IS included (needed at runtime),
+# except the segmenters, which the /predict endpoint does not use.
+.venv
+venv
+__pycache__
+**/__pycache__
+*.pyc
+.git
+.gitignore
+
+# frontend — deployed separately on Vercel
+web/node_modules
+web/.next
+web/out
+
+# datasets — never ship these
+dataset
+busi
+busbra
+busuclm
+
+# stray training checkpoints at repo root (not needed to serve)
+breast_report_*.pt
+interp_*.pt
+epistemic_*.pt
+birads_*.pt
+*_fold*.pt
+
+# unused-at-serve artifacts inside prod/
+prod/segmenter.pt
+prod/segmenter_v2.pt
+prod_expanded
+
+# generated outputs / caches
+*.pdf
+*.npy
+_cam*.png
+.cache

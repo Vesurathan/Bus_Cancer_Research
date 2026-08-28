@@ -2,6 +2,7 @@
 config.py -- shared settings for the agentic BUS report-generation pipeline (Phase A).
 Edit paths/flags here; every module imports from this file so settings stay consistent.
 """
+import os
 import torch
 
 # ---- paths --------------------------------------------------------------- #
@@ -35,7 +36,7 @@ MAX_ATTEMPTS   = 2       # verify->refine loop cap
 # rewrite the draft so it is clinically consistent while staying fluent;
 # "rule" reproduces the Phase A deterministic repair (and is the automatic
 # fallback whenever the LLM is unreachable or returns an unusable report).
-REFINE_MODE    = "llm"                      # "llm" | "rule"
+REFINE_MODE    = os.environ.get("REFINE_MODE", "llm")   # "llm" | "rule" (env override for hosted/CPU deploys with no Ollama)
 OLLAMA_URL     = "http://localhost:11434"
 OLLAMA_MODEL   = "llama3.1:8b"
 OLLAMA_TIMEOUT = 60                          # seconds per refine call

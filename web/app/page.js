@@ -96,10 +96,13 @@ export default function Page() {
             An agent turns a BUS image into a structured report: <b style={{ color: "var(--text)" }}>retrieve → find → draft → verify → refine</b>.
           </p>
         </div>
-        <div style={{ marginLeft: "auto", display: "flex", gap: 8, flexWrap: "wrap" }}>
+        <div style={{ marginLeft: "auto", display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
           <Badge label={data.meta?.dataset} />
           <Badge label={`${data.meta?.nTerms} interpretation terms`} />
           <Badge label={`refiner: ${data.meta?.model}`} accent />
+          <a href="/live" style={{ fontSize: 12.5, fontWeight: 700, padding: "6px 12px", borderRadius: 999, background: "linear-gradient(180deg,#123049,#0e2136)", border: "1px solid rgba(56,189,248,0.5)", color: "var(--accent)", textDecoration: "none" }}>
+            Try live ↗
+          </a>
         </div>
       </header>
 
