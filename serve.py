@@ -218,6 +218,24 @@ async def predict(image: UploadFile = File(...), descriptors: str = Form(None)):
                     pass
 
 
+# Serve the bundled single-page UI at "/" (used by the desktop app). We inject the
+# request's absolute base URL as window.__API_BASE__ so the page can call the API with
+# an absolute address — pywebview's WKWebView can load the page with an opaque origin,
+# which makes a relative fetch("/predict") fail to parse.
+_UI_INDEX = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web_ui", "index.html")
+if os.path.isfile(_UI_INDEX):
+    from fastapi import Request
+    from fastapi.responses import HTMLResponse
+
+    @app.get("/", response_class=HTMLResponse)
+    def ui(request: Request):
+        with open(_UI_INDEX, encoding="utf-8") as f:
+            html = f.read()
+        base = str(request.base_url).rstrip("/")
+        inject = f'<script>window.__API_BASE__ = "{base}";</script>\n</head>'
+        return HTMLResponse(html.replace("</head>", inject, 1))
+
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 7860))
