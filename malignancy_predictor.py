@@ -24,11 +24,21 @@ class MalignancyPredictor:
         self.meta = json.load(open(f"{prod_dir}/meta.json"))
         self.k = self.meta.get("knn_k", 7)
 
-        # visual stream
-        self.vit = build_model().to(self.device).eval()
-        self.vit.load_state_dict(torch.load(f"{prod_dir}/vit_malignancy.pt",
-                                            map_location=self.device))
-        self.tf = get_transform(train=False)
+        # visual stream: dispatch on the backbone recorded at training time so a
+        # BiomedCLIP-promoted model loads its own encoder/transform, while older
+        # ImageNet-ViT prod dirs keep working unchanged.
+        self.image_backbone = self.meta.get("image_backbone", "imagenet_vit")
+        if self.image_backbone == "biomedclip":
+            from malignancy_model_clip import build_model as build_clip, get_transform as clip_tf
+            self.vit = build_clip(freeze="full").to(self.device).eval()
+            self.vit.load_state_dict(torch.load(f"{prod_dir}/clip_malignancy.pt",
+                                                map_location=self.device))
+            self.tf = clip_tf(train=False)
+        else:
+            self.vit = build_model().to(self.device).eval()
+            self.vit.load_state_dict(torch.load(f"{prod_dir}/vit_malignancy.pt",
+                                                map_location=self.device))
+            self.tf = get_transform(train=False)
 
         # descriptor stream
         with open(f"{prod_dir}/descriptor.pkl", "rb") as f:
